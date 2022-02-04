@@ -20,7 +20,7 @@ parse [] = Epsilon
 parse ['.'] = Epsilon
 parse [x] = Single x
 parse x
-  | last x == '*' && l == length x = parse (init x) 
+  | last x == '*' && l == length x = Star (parse (init x))
   | head x == '(' && last x == ')' && l == length x = parse (tail (init x))
   | head afterBracket == '+' = Or (parse insideBracket) (parse (tail afterBracket))
   | otherwise = Seq (parse insideBracket) (parse afterBracket)
